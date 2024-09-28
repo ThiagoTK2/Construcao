@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário 01</title>
+</head>
+<style>
+#meu-hobbies {
+    margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+#hobbies-caixa {
+  border: 1px solid black;
+  padding: 5px;
+  width: 35%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#hobbies-caixa label {
+  margin-right: 15px;
+  margin-bottom: 5px;
+}
+
+</style>
+
+<form>
+<h2>Cadastro de Usuário</h2>
+    
+  <label for="nome">Nome:</label>
+  <input type="text" id="nome" name="nome"><br><br>
+    
+  <label for="telefone">Telefone:</label>
+  <input type="text" id="telefone" name="telefone"><br><br>
+    
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email"><br><br>
+    
+  <label for="senha">Senha:</label>
+  <input type="password" id="senha" name="senha"><br><br>
+    
+    <label>Sexo:</label>
+    <input type="radio" id="masculino" name="sexo" value="masculino">
+    <label for="masculino">Masculino</label>
+    <input type="radio" id="feminino" name="sexo" value="feminino">
+    <label for="feminino">Feminino</label><br><br>
+    
+      <label for="uf">UF:</label>
+      <select id="uf" name="uf"> <!--Serve para selecionar os estados-->
+        <option value="DF">DF</option>
+        <option value="DF">GO</option>
+        <option value="DF">SP</option>
+        <option value="DF">MA</option>
+        <option value="DF">RJ</option>
+        <option value="DF">MG</option>
+    </select><br><br>
+    
+<div id="meu-hobbies">
+  <label>Hobbies</label><br>
+    <div id="hobbies-caixa">
+        <input type="checkbox" id="futebol" name="hobbies" value="futebol">
+        <label for="futebol">Futebol</label>
+        <input type="checkbox" id="xadrez" name="hobbies" value="xadrez">
+        <label for="xadrez">Xadrez</label>
+        <input type="checkbox" id="esportes" name="hobbies" value="esportes">
+        <label for="esportes">Esportes</label>
+        <input type="checkbox" id="musica" name="hobbies" value="musica">
+        <label for="musica">Musica</label>
+        <input type="checkbox" id="cinema" name="hobbies" value="cinema">
+        <label for="cinema">Cinema</label>
+        <input type="checkbox" id="leitura" name="hobbies" value="leitura">
+        <label for="leitura">Leitura</label>
+</div>
+<br>
+  <label for="observacao">Observação:</label><br>
+  <textarea id="observacao" name="observacao" rows="10" cols="40"></textarea><br><br>
+    <button type="button">Voltar</button> <!-- Voltar ao inicio da pagina -->
+    <button type="reset">Limpar</button> <!-- Serve para limpar o formulario -->
+    <button type="submit">Salvar</button> <!-- Para salvar o'que foi escrito no formulario -->
+</form>
+</html>

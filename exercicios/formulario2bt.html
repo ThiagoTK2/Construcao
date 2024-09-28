@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário</title>
+    <link rel="stylesheet" href="../02-bootstrap/node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<style>
+h1 {
+    text-align: center;
+}
+
+
+</style>
+<div class="container mt-5">
+<!--Botão para Voltar-->
+<a href="#" class=" btn-secondary mb-3">Voltar</a>
+
+<h1>Cadastro de Usuário</h1>
+<br>
+
+<form> <!-- Nome, Telefone, E-mail-->
+    <div class="mb-3">
+      <label for="exampleInputname" class="form-label">Nome:</label>
+      <input type="name" class="form-control" id="exampleInputname" aria-describedby="nameHelp">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputtelephone" class="form-label">Telefone:</label>
+      <input type="telephone" class="form-control" id="exampleInputtelephone">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email:</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Senha:</label>
+        <input type="password" class="form-control" id="exampleInputPassword1">
+    </div> 
+    <br>
+<!--Escolha SX -->
+<div class="mb-3">
+    <label for="exampleInputSexo" class="form-label">Sexo:</label>
+<div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioMasculine" id="flexRadioMasculine">
+    <label class="form-check-label" for="flexRadioMasculine">
+      Masculino
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioFeminine" id="flexRadioFeminine" checked>
+    <label class="form-check-label" for="flexRadioFeminine">
+      Feminino
+    </label>
+  </div>
+  <br>
+<!--Escolha UF -->
+<div class="mb-3">
+    <label for="exampleInputUF" class="form-label">UF</label>
+<div class="form-check">
+<select class="form-select" aria-label="Default select example">
+    <option value="1">DF</option>
+    <option value="2">MG</option>
+    <option value="3">SP</option>
+    <option value="4">TO</option>
+    <option value="5">MA</option>
+    <option value="6">GO</option>
+  </select>
+  <br>
+<!--Escolha Hobbies-->
+  <div class="form-group">
+    <label>Hobbies:</label><br>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="futebol" value="futebol">
+        <label class="form-check-label" for="futebol">Futebol</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="xadrez" value="xadrez">
+        <label class="form-check-label" for="xadrez">Xadrez</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="esportes" value="esportes">
+        <label class="form-check-label" for="esportes">Esportes</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="musica" value="musica">
+        <label class="form-check-label" for="musica">Música</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="cinema" value="cinema">
+        <label class="form-check-label" for="cinema">Cinema</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="leitura" value="leitura">
+        <label class="form-check-label" for="leitura">Leitura</label>
+    </div>
+</div>
+<br>
+<!--Aplicar uma observação -->
+<div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Obervação:</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+
+<!-- Botões -->
+<div class="form-group">
+    <button type="button" class="btn btn-secondary">Voltar</button>
+    <button type="reset" class="btn btn-warning">Limpar</button>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</div>
+</div>
+
+</form>
+</html>
