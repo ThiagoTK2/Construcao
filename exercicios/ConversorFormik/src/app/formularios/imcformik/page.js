@@ -2,127 +2,115 @@
 
 import { useState } from 'react';  
 import Pagina from "@/components/Pagina";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Container, Row, Col, Card } from "react-bootstrap";
 import { FaExchangeAlt, FaTrash } from "react-icons/fa";
 import { Formik } from 'formik';
 
 const imagensMoedas = {
-  USD: '/img/dollar.png',    // Caminho do dólar
-  EUR: '/img/euro.png',      // Caminho do euro
-  BTC: '/img/bitcoin.png'    // Caminho do bitcoin
+  USD: '/img/dollar.png',
+  EUR: '/img/euro.png',
+  BTC: '/img/bitcoin.png'
+};
+
+const taxasConversao = {
+  USD: 0.20,
+  EUR: 0.18,
+  BTC: 0.000003
 };
 
 export default function ConversorMoedaPage() {
   const [resultado, setResultado] = useState(null);
   const [moedaDestino, setMoedaDestino] = useState('');
 
-  function converter(values) {
-    // Valores fixos para conversão
-    const taxasConversao = {
-      USD: 0.20, // 1 real = 0.20 dólares
-      EUR: 0.18, // 1 real = 0.18 euros
-      BTC: 0.000003 // 1 real = 0.000003 bitcoins
-    };
-
-    // Calcular o valor convertido com base na moeda selecionada
+  const converter = (values) => {
     const valorConvertido = parseFloat(values.valor) * (taxasConversao[values.moedaDestino] || 0);
-
-    // Exibir o resultado com 2 casas decimais para USD e EUR, e 6 para BTC
     const resultadoFormatado = values.moedaDestino === 'BTC' 
       ? valorConvertido.toFixed(6) 
       : valorConvertido.toFixed(2);
 
     setResultado(resultadoFormatado);
     setMoedaDestino(values.moedaDestino);
-  }
+  };
 
-  function limpar(resetForm) {
+  const limpar = (resetForm) => {
     resetForm();
     setResultado(null);
     setMoedaDestino('');
-  }
+  };
 
   return (
     <Pagina titulo="Conversor de Moeda">
+      <Container className="d-flex justify-content-center mt-5">
+        <Card style={{ maxWidth: '500px', width: '100%' }} className="p-4 shadow">
+          <Card.Body>
+            {moedaDestino && imagensMoedas[moedaDestino] && (
+              <div className="text-center mb-4">
+                <img 
+                  src={imagensMoedas[moedaDestino]} 
+                  alt={`Ícone da moeda ${moedaDestino}`}
+                  style={{ width: '150px', height: 'auto' }}
+                  className="img-fluid"
+                />
+              </div>
+            )}
 
-      {/* Exibe a imagem da moeda correspondente acima do formulário */}
-      {moedaDestino && imagensMoedas[moedaDestino] && (
-        <div className="text-center mb-3">
-          <img 
-            src={imagensMoedas[moedaDestino]} 
-            alt={`Ícone da moeda ${moedaDestino}`}
-            style={{ 
-              width: '200px', // Ajuste o tamanho conforme necessário
-              height: 'auto',
-              display: 'block',
-              left: '10px', // Posiciona a imagem no canto esquerdo
-            }} 
-          />
-        </div>
-      )}
+            <Formik
+              initialValues={{ valor: '0', moedaDestino: '' }}
+              onSubmit={(values, { resetForm }) => converter(values)}
+            >
+              {({ values, handleChange, handleSubmit, resetForm }) => (
+                <Form onSubmit={handleSubmit}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Valor em Reais (BRL):</Form.Label>
+                    <Form.Control
+                      type="number"
+                      name="valor"
+                      value={values.valor}
+                      onChange={handleChange}
+                      min={0.01}
+                      step={0.01}
+                      placeholder="Digite o valor em BRL"
+                    />
+                  </Form.Group>
 
-      {/* Formulário com Formik */}
-      <Formik
-        initialValues={{
-          valor: '0',
-          moedaDestino: ''
-        }}
-        onSubmit={(values, { resetForm }) => {
-          converter(values);
-          resetForm(); // Adicione resetForm aqui, se necessário
-        }}
-      >
-        {({ values, handleChange, handleSubmit }) => (
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3">
-              <Form.Label>Valor em Reais (BRL):</Form.Label>
-              <Form.Control
-                type="number"
-                name="valor"
-                value={values.valor}  // Corrigido
-                onChange={handleChange} // Corrigido
-                min={0.01}
-                step={0.01}
-              />
-            </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Moeda de Destino:</Form.Label>
+                    <Form.Select
+                      name="moedaDestino"
+                      value={values.moedaDestino}
+                      onChange={handleChange}
+                    >
+                      <option value="">Selecione a moeda</option>
+                      <option value="USD">Dólar (USD)</option>
+                      <option value="EUR">Euro (EUR)</option>
+                      <option value="BTC">Bitcoin (BTC)</option>
+                    </Form.Select>
+                  </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label>Moeda de Destino:</Form.Label>
-              <Form.Select
-                name="moedaDestino"
-                value={values.moedaDestino}
-                onChange={handleChange}
-              >
-                <option>Selecione</option>
-                <option value="USD">Dólar (USD)</option>
-                <option value="EUR">Euro (EUR)</option>
-                <option value="BTC">Bitcoin (BTC)</option>
-              </Form.Select>
-            </Form.Group>
+                  <Form.Group className="mb-3 text-center">
+                    <Button type="submit" variant="primary" className="me-2">
+                      <FaExchangeAlt /> Converter
+                    </Button>
+                    <Button 
+                      type="button" 
+                      variant="secondary" 
+                      onClick={() => limpar(resetForm)}
+                    >
+                      <FaTrash /> Limpar
+                    </Button>
+                  </Form.Group>
+                </Form>
+              )}
+            </Formik>
 
-            <Form.Group className="mb-3 text-center">
-              <Button type="submit" variant="primary">
-                <FaExchangeAlt /> Converter
-              </Button>
-              <Button 
-                type="button" 
-                variant="danger" 
-                className="ms-2" 
-                onClick={() => limpar(handleReset)}
-              >
-                <FaTrash /> Limpar
-              </Button>
-            </Form.Group>
-          </Form>
-        )}
-      </Formik>
-
-      {/* Exibe o resultado */}
-      {resultado !== null && moedaDestino && (
-        <div className="mt-4 text-center">
-          <h4>Resultado: {resultado} {moedaDestino}</h4>
-        </div>
-      )}
+            {resultado !== null && moedaDestino && (
+              <div className="mt-4 text-center">
+                <h5 className="text-success">Resultado: {resultado} {moedaDestino}</h5>
+              </div>
+            )}
+          </Card.Body>
+        </Card>
+      </Container>
     </Pagina>
   );
 }
