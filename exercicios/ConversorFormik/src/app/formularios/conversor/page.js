@@ -1,11 +1,10 @@
 'use client';
 
-import Pagina from "@/components/Pagina";
-import { Formik } from 'formik';
 import { useState } from 'react';  
-import { Button, CardImg, Form, Modal } from "react-bootstrap";
-import { FaCheck, FaTrashAlt } from 'react-icons/fa'
-
+import Pagina from "@/components/Pagina";
+import { Button, Form } from "react-bootstrap";
+import { FaExchangeAlt, FaTrash } from "react-icons/fa";
+import { Formik } from 'formik';
 
 const imagensMoedas = {
   USD: '/img/dollar.png',    // Caminho do dólar
@@ -68,17 +67,20 @@ export default function ConversorMoedaPage() {
           valor: '0',
           moedaDestino: ''
         }}
-        onSubmit={(values, { resetForm }) => converter(values)}
+        onSubmit={(values, { resetForm }) => {
+          converter(values);
+          resetForm(); // Adicione resetForm aqui, se necessário
+        }}
       >
-        {({ values, handleChange, handleSubmit, handleReset }) => (
+        {({ values, handleChange, handleSubmit }) => (
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3">
               <Form.Label>Valor em Reais (BRL):</Form.Label>
               <Form.Control
                 type="number"
                 name="valor"
-                value={values.valor}
-                onChange={handleChange}
+                value={values.valor}  // Corrigido
+                onChange={handleChange} // Corrigido
                 min={0.01}
                 step={0.01}
               />

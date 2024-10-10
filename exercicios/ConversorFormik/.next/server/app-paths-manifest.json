@@ -1,3 +1,4 @@
 {
-  "/formularios/conversor/page": "app/formularios/conversor/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/formularios/imcformik/page": "app/formularios/imcformik/page.js"
 }
