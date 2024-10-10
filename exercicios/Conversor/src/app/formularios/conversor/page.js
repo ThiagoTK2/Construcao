@@ -1,15 +1,14 @@
-'use client'
+'use client';
 
+import { useState } from 'react';  
 import Pagina from "@/components/Pagina";
-import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { FaExchangeAlt, FaTrash } from "react-icons/fa";
 
-
 const imagensMoedas = {
   USD: '/img/dollar.png',    // Caminho do dólar
-  EUR: '/img/euro.png',     // Caminho do euro
-  BTC: '/img/bitcoin.png'   // Caminho para do bitcoin
+  EUR: '/img/euro.png',      // Caminho do euro
+  BTC: '/img/bitcoin.png'    // Caminho do bitcoin
 };
 
 export default function ConversorMoedaPage() {
@@ -29,7 +28,7 @@ export default function ConversorMoedaPage() {
 
     // Calcular o valor convertido com base na moeda selecionada
     const valorConvertido = parseFloat(valor) * (taxasConversao[moedaDestino] || 0);
-    
+
     // Exibir o resultado com 2 casas decimais para USD e EUR, e 6 para BTC
     const resultadoFormatado = moedaDestino === 'BTC' 
       ? valorConvertido.toFixed(6) 
@@ -47,6 +46,23 @@ export default function ConversorMoedaPage() {
 
   return (
     <Pagina titulo="Conversor de Moeda">
+
+      {/* Exibe a imagem da moeda correspondente acima do formulário */}
+      {moedaDestino && imagensMoedas[moedaDestino] && (
+        <div className="text-center mb-3">
+          <img 
+            src={imagensMoedas[moedaDestino]} 
+            alt={`Ícone da moeda ${moedaDestino}`}
+            style={{ 
+              width: '200px', // Ajuste o tamanho conforme necessário
+              height: 'auto',
+              display: 'block',
+              left: '10px', // Posiciona a imagem no canto esquerdo
+            }} 
+          />
+        </div>
+      )}
+
       {/* Formulário */}
       <Form onSubmit={converter}>
         <Form.Group className="mb-3">
@@ -85,19 +101,10 @@ export default function ConversorMoedaPage() {
         </Form.Group>
       </Form>
 
+      {/* Exibe o resultado */}
       {resultado !== null && moedaDestino && (
         <div className="mt-4 text-center">
           <h4>Resultado: {resultado} {moedaDestino}</h4>
-
-          {/* Exibe a imagem da moeda correspondente */}
-{moedaDestino && imagensMoedas[moedaDestino] && (
-      <img 
-        src={imagensMoedas[moedaDestino]} 
-        alt={`Ícone da moeda ${moedaDestino}`}
-        style={{ width: '300px', height: '150px', marginTop: '10px' }} // Aumentando o tamanho da imagem
-  />
-)}
-
         </div>
       )}
     </Pagina>
