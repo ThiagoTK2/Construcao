@@ -2,7 +2,7 @@
 
 import { useState } from 'react';  
 import Pagina from "@/components/Pagina";
-import { Button, Form, Container, Row, Col, Card } from "react-bootstrap";
+import { Button, Form, Container, Card } from "react-bootstrap";
 import { FaExchangeAlt, FaTrash } from "react-icons/fa";
 import { Formik } from 'formik';
 
@@ -56,7 +56,10 @@ export default function ConversorMoedaPage() {
 
             <Formik
               initialValues={{ valor: '0', moedaDestino: '' }}
-              onSubmit={(values, { resetForm }) => converter(values)}
+              onSubmit={(values, { resetForm }) => {
+                converter(values);
+                resetForm();
+              }}
             >
               {({ values, handleChange, handleSubmit, resetForm }) => (
                 <Form onSubmit={handleSubmit}>
@@ -87,7 +90,7 @@ export default function ConversorMoedaPage() {
                     </Form.Select>
                   </Form.Group>
 
-                  <Form.Group className="mb-3 text-center">
+                  <div className="text-center">
                     <Button type="submit" variant="primary" className="me-2">
                       <FaExchangeAlt /> Converter
                     </Button>
@@ -98,7 +101,7 @@ export default function ConversorMoedaPage() {
                     >
                       <FaTrash /> Limpar
                     </Button>
-                  </Form.Group>
+                  </div>
                 </Form>
               )}
             </Formik>
