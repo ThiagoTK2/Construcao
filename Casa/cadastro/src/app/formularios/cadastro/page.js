@@ -1,12 +1,10 @@
-'use client'
+'use client';
 
-import Pagina from '@/components/Pagina'
+import Pagina from '@/components/Pagina';
 import { Formik } from 'formik';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { FaCheck, FaTrash } from 'react-icons/fa';
 import * as Yup from 'yup';
-
-// Removi o ImoveisPage porque o foco é no CadastroPage
 
 export default function CadastroPage() {
   function cadastrar(dados) {
@@ -66,16 +64,16 @@ export default function CadastroPage() {
   });
 
   return (
-    <Pagina titulo={"Cadastro de Imóveis"}>
+    <Pagina titulo="Cadastro de Imóveis">
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={cadastrar}
       >
         {({ values, errors, touched, handleBlur, handleSubmit, handleReset, handleChange }) => (
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} className="p-4 border rounded bg-light shadow-sm">
             {/* Formulário de Cadastro de Imóveis */}
-            <Row className='mb-2'>
+            <Row className='mb-3'>
               <Form.Group as={Col}>
                 <Form.Label>Tipo:</Form.Label>
                 <Form.Control
@@ -86,6 +84,7 @@ export default function CadastroPage() {
                   onBlur={handleBlur}
                   isValid={touched.tipo && !errors.tipo}
                   isInvalid={touched.tipo && !!errors.tipo}
+                  placeholder="Digite o tipo do imóvel"
                 />
                 <Form.Control.Feedback type='invalid'>{errors.tipo}</Form.Control.Feedback>
               </Form.Group>
@@ -100,12 +99,13 @@ export default function CadastroPage() {
                   onBlur={handleBlur}
                   isValid={touched.finalidade && !errors.finalidade}
                   isInvalid={touched.finalidade && !!errors.finalidade}
+                  placeholder="Digite a finalidade"
                 />
                 <Form.Control.Feedback type='invalid'>{errors.finalidade}</Form.Control.Feedback>
               </Form.Group>
             </Row>
 
-            <Row className='mb-2'>
+            <Row className='mb-3'>
               <Form.Group as={Col}>
                 <Form.Label>Valor:</Form.Label>
                 <Form.Control
@@ -116,6 +116,7 @@ export default function CadastroPage() {
                   onBlur={handleBlur}
                   isValid={touched.valor && !errors.valor}
                   isInvalid={touched.valor && !!errors.valor}
+                  placeholder="Digite o valor do imóvel"
                 />
                 <Form.Control.Feedback type='invalid'>{errors.valor}</Form.Control.Feedback>
               </Form.Group>
@@ -130,12 +131,13 @@ export default function CadastroPage() {
                   onBlur={handleBlur}
                   isValid={touched.area && !errors.area}
                   isInvalid={touched.area && !!errors.area}
+                  placeholder="Digite a área em m²"
                 />
                 <Form.Control.Feedback type='invalid'>{errors.area}</Form.Control.Feedback>
               </Form.Group>
             </Row>
 
-            <Row className='mb-2'>
+            <Row className='mb-3'>
               <Form.Group as={Col}>
                 <Form.Label>Quartos:</Form.Label>
                 <Form.Control
@@ -146,6 +148,7 @@ export default function CadastroPage() {
                   onBlur={handleBlur}
                   isValid={touched.quartos && !errors.quartos}
                   isInvalid={touched.quartos && !!errors.quartos}
+                  placeholder="Digite o número de quartos"
                 />
                 <Form.Control.Feedback type='invalid'>{errors.quartos}</Form.Control.Feedback>
               </Form.Group>
@@ -160,48 +163,19 @@ export default function CadastroPage() {
                   onBlur={handleBlur}
                   isValid={touched.banheiros && !errors.banheiros}
                   isInvalid={touched.banheiros && !!errors.banheiros}
+                  placeholder="Digite o número de banheiros"
                 />
                 <Form.Control.Feedback type='invalid'>{errors.banheiros}</Form.Control.Feedback>
               </Form.Group>
             </Row>
 
-            <Row className='mb-2'>
-              <Form.Group as={Col}>
-                <Form.Label>Descrição:</Form.Label>
-                <Form.Control
-                  name='descricao'
-                  type='text'
-                  value={values.descricao}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  isValid={touched.descricao && !errors.descricao}
-                  isInvalid={touched.descricao && !!errors.descricao}
-                />
-                <Form.Control.Feedback type='invalid'>{errors.descricao}</Form.Control.Feedback>
-              </Form.Group>
-
-              <Form.Group as={Col}>
-                <Form.Label>Foto:</Form.Label>
-                <Form.Control
-                  name='foto'
-                  type='text'
-                  value={values.foto}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  isValid={touched.foto && !errors.foto}
-                  isInvalid={touched.foto && !!errors.foto}
-                />
-                <Form.Control.Feedback type='invalid'>{errors.foto}</Form.Control.Feedback>
-              </Form.Group>
-            </Row>
-
             {/* Endereço */}
-            <div className='text-center'>
-              <h3>Endereço</h3>
-              <hr />
+            <div className='text-center mt-4'>
+              <h4 className="text-primary">Endereço</h4>
+              <hr className="mb-3" />
             </div>
 
-            <Row className='mb-2'>
+            <Row className='mb-3'>
               <Form.Group as={Col}>
                 <Form.Label>Cep:</Form.Label>
                 <Form.Control
@@ -212,6 +186,7 @@ export default function CadastroPage() {
                   onBlur={handleBlur}
                   isValid={touched.endereco?.cep && !errors.endereco?.cep}
                   isInvalid={touched.endereco?.cep && !!errors.endereco?.cep}
+                  placeholder="Digite o CEP"
                 />
                 <Form.Control.Feedback type='invalid'>{errors.endereco?.cep}</Form.Control.Feedback>
               </Form.Group>
@@ -226,12 +201,13 @@ export default function CadastroPage() {
                   onBlur={handleBlur}
                   isValid={touched.endereco?.logradouro && !errors.endereco?.logradouro}
                   isInvalid={touched.endereco?.logradouro && !!errors.endereco?.logradouro}
+                  placeholder="Digite o logradouro"
                 />
                 <Form.Control.Feedback type='invalid'>{errors.endereco?.logradouro}</Form.Control.Feedback>
               </Form.Group>
             </Row>
 
-            <Row className='mb-2'>
+            <Row className='mb-3'>
               <Form.Group as={Col}>
                 <Form.Label>Número:</Form.Label>
                 <Form.Control
@@ -242,6 +218,7 @@ export default function CadastroPage() {
                   onBlur={handleBlur}
                   isValid={touched.endereco?.numero && !errors.endereco?.numero}
                   isInvalid={touched.endereco?.numero && !!errors.endereco?.numero}
+                  placeholder="Digite o número"
                 />
                 <Form.Control.Feedback type='invalid'>{errors.endereco?.numero}</Form.Control.Feedback>
               </Form.Group>
@@ -254,17 +231,18 @@ export default function CadastroPage() {
                   value={values.endereco.complemento}
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  placeholder="Digite o complemento (opcional)"
                 />
               </Form.Group>
             </Row>
 
             {/* Dono do imóvel */}
-            <div className='text-center'>
-              <h3>Proprietário</h3>
-              <hr />
+            <div className='text-center mt-4'>
+              <h4 className="text-primary">Proprietário</h4>
+              <hr className="mb-3" />
             </div>
 
-            <Row className='mb-2'>
+            <Row className='mb-3'>
               <Form.Group as={Col}>
                 <Form.Label>Nome:</Form.Label>
                 <Form.Control
@@ -275,6 +253,7 @@ export default function CadastroPage() {
                   onBlur={handleBlur}
                   isValid={touched.proprietario?.nome && !errors.proprietario?.nome}
                   isInvalid={touched.proprietario?.nome && !!errors.proprietario?.nome}
+                  placeholder="Digite o nome do proprietário"
                 />
                 <Form.Control.Feedback type='invalid'>{errors.proprietario?.nome}</Form.Control.Feedback>
               </Form.Group>
@@ -289,12 +268,13 @@ export default function CadastroPage() {
                   onBlur={handleBlur}
                   isValid={touched.proprietario?.cpf && !errors.proprietario?.cpf}
                   isInvalid={touched.proprietario?.cpf && !!errors.proprietario?.cpf}
+                  placeholder="Digite o CPF"
                 />
                 <Form.Control.Feedback type='invalid'>{errors.proprietario?.cpf}</Form.Control.Feedback>
               </Form.Group>
             </Row>
 
-            <Row className='mb-2'>
+            <Row className='mb-3'>
               <Form.Group as={Col}>
                 <Form.Label>Telefone:</Form.Label>
                 <Form.Control
@@ -305,6 +285,7 @@ export default function CadastroPage() {
                   onBlur={handleBlur}
                   isValid={touched.proprietario?.telefone && !errors.proprietario?.telefone}
                   isInvalid={touched.proprietario?.telefone && !!errors.proprietario?.telefone}
+                  placeholder="Digite o telefone"
                 />
                 <Form.Control.Feedback type='invalid'>{errors.proprietario?.telefone}</Form.Control.Feedback>
               </Form.Group>
@@ -313,23 +294,25 @@ export default function CadastroPage() {
                 <Form.Label>E-mail:</Form.Label>
                 <Form.Control
                   name='proprietario.email'
-                  type='text'
+                  type='email'
                   value={values.proprietario.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   isValid={touched.proprietario?.email && !errors.proprietario?.email}
                   isInvalid={touched.proprietario?.email && !!errors.proprietario?.email}
+                  placeholder="Digite o e-mail"
                 />
                 <Form.Control.Feedback type='invalid'>{errors.proprietario?.email}</Form.Control.Feedback>
               </Form.Group>
             </Row>
 
-            <div className="d-flex justify-content-between mt-4">
-              <Button type="submit" variant="success">
-                <FaCheck /> Salvar
-              </Button>
-              <Button type="button" variant="warning" onClick={handleReset}>
+            {/* Botões */}
+            <div className='d-flex justify-content-end'>
+              <Button variant="outline-danger" onClick={handleReset} className='mx-2'>
                 <FaTrash /> Limpar
+              </Button>
+              <Button type='submit' variant="outline-primary">
+                <FaCheck /> Salvar
               </Button>
             </div>
           </Form>
