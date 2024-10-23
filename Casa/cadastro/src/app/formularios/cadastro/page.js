@@ -5,10 +5,23 @@ import { Formik } from 'formik';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { FaCheck, FaTrash } from 'react-icons/fa';
 import * as Yup from 'yup';
+import { useState } from 'react';
 
 export default function CadastroPage() {
+  const [file, setFile] = useState(null); // Estado para armazenar a imagem
+
   const cadastrar = (dados) => {
-    console.log(dados);
+    const formData = new FormData();
+    formData.append('tipo', dados.tipo);
+    formData.append('finalidade', dados.finalidade);
+    formData.append('valor', dados.valor);
+    formData.append('area', dados.area);
+    formData.append('quartos', dados.quartos);
+    formData.append('banheiros', dados.banheiros);
+    formData.append('descricao', dados.descricao);
+    formData.append('vagasGaragem', dados.vagasGaragem);
+    formData.append('foto', file); // Adiciona a imagem ao FormData
+    console.log([...formData]); // Apenas para teste, exibe os dados
   };
 
   const initialValues = {
@@ -19,7 +32,6 @@ export default function CadastroPage() {
     quartos: '',
     banheiros: '',
     descricao: '',
-    foto: '',
     vagasGaragem: '',
     endereco: {
       cep: '',
@@ -66,8 +78,21 @@ export default function CadastroPage() {
 
   return (
     <Pagina titulo="Cadastro de Imóveis">
-      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={cadastrar}>
-        {({ values, errors, touched, handleBlur, handleSubmit, handleReset, handleChange }) => (
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={cadastrar}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleBlur,
+          handleSubmit,
+          handleReset,
+          handleChange,
+          setFieldValue,
+        }) => (
           <Form onSubmit={handleSubmit}>
             <FormSection title="Informações do Imóvel">
               <Row className="mb-2">
@@ -150,16 +175,25 @@ export default function CadastroPage() {
                   touched={touched.descricao}
                   error={errors.descricao}
                 />
-                <FormField
-                  label="Foto"
-                  name="foto"
-                  type="text"
-                  value={values.foto}
-                  handleChange={handleChange}
-                  handleBlur={handleBlur}
-                  touched={touched.foto}
-                  error={errors.foto}
-                />
+                <Col md={6}>
+                  <Form.Group controlId="foto">
+                    <Form.Label>Foto</Form.Label>
+                    <Form.Control
+                      type="file"
+                      name="foto"
+                      onChange={(event) => {
+                        const file = event.currentTarget.files[0];
+                        setFile(file); // Atualiza o estado da imagem
+                        setFieldValue('foto', file); // Atualiza o Formik
+                      }}
+                      onBlur={handleBlur}
+                      isInvalid={touched.foto && !!errors.foto}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.foto}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
               </Row>
 
               <Row className="mb-2">
